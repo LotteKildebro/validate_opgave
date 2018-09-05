@@ -1,0 +1,95 @@
+<% extend('../partials/admin') %>
+    <h2>
+        <%= title %>
+    </h2>
+
+     <h3> 
+    <%= formtype %>
+    </h3>
+
+    <form id="bruger_form" method="post">
+        <label for="bruger_email">Bruger Email</label>
+        <input type="text" name="bruger_email" value="<%= en_bruger.bruger_email %>">
+
+        <label for="bruger_kodeord">Bruger kodeord</label>
+        <input type="password" name="bruger_kodeord">
+
+        <label for="gentag_kodeord">Gentag kodeord</label>
+        <input type="password" name="gentag_kodeord">
+
+
+
+        
+        <br>
+    
+    <button class="button button1">Gem</button>
+    <a href="/admin/brugere" class="button button2">Annuller</a>
+    </form>
+
+        <span id="fejl_besked">
+        <%=fejl_besked%>
+    </span>
+
+<% if(alle_brugere.length > 0) { %>
+    <table id="table1">
+        <th>id</th>
+        <th>Email</th>
+        <th>Ret</th>
+        <th>Slet</th>
+        <% (alle_brugere || []).forEach(element =>{ %>
+            <tr>
+                <td>
+                    <%= element.bruger_id%>
+                </td>
+                <td>
+                    <%= element.bruger_email%>
+                </td>
+                <td>
+                    <a href="/admin/brugere/ret/<%= element.bruger_id %>" class="button button1">Ret</a>
+                </td>
+                <td>
+                    <a href="/admin/brugere/slet/<%= element.bruger_id %>" class="button button2" onClick="return confirm('Ønsker du at slette?')">
+                    Slet</a>
+                </td>
+                <% })%>
+            </tr>
+            <% } %>
+
+    </table>
+    
+
+<script>
+
+document.querySelector('#bruger_form button').addEventListener('click', (event)=>{
+   event.preventDefault();
+   //If this method is called, the default action of the event will not be triggered.
+   document.getElementById('fejl_besked').textContent = "";
+
+    let form_valid = true;
+
+   let form = document.querySelector('#bruger_form');
+   // her foretages valideringen som normalt.
+
+  // her foretages valideringen som normalt.
+    let fejl_besked = [];
+
+    if (form.bruger_kodeord.value != form.gentag_kodeord.value) {
+    fejl_besked.push("Gentag kodeordet tak!");
+    form_valid = false;
+    } 
+
+    if (form.bruger_email.value == "") {
+        fejl_besked.push("Udfyld email");
+        form_valid = false;
+    }
+    
+  if(form_valid == true){
+   // når valideingen er ok, sendes form alle_brugere
+   form.submit();
+   } else {
+document.getElementById('fejl_besked').textContent = fejl_besked.join(',');
+   }
+    
+})
+</script>
+
