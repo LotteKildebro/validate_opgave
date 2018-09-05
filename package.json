@@ -1,0 +1,28 @@
+{
+  "name": "validate_opgave",
+  "version": "1.0.0",
+  "description": "Validerings opgave med Frank :-)",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LotteKildebro/validate_opgave.git"
+  },
+  "author": "Lotte",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LotteKildebro/validate_opgave/issues"
+  },
+  "homepage": "https://github.com/LotteKildebro/validate_opgave#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "express-ejs-extend": "0.0.1",
+    "morgan": "^1.9.0",
+    "mysql2": "^1.6.1",
+    "session": "^0.1.0"
+  }
+}
