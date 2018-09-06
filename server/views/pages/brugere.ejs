@@ -4,31 +4,26 @@
     </h2>
 
      <h3> 
-    <%= formtype %>
+        <%= formtype %>
     </h3>
 
     <form id="bruger_form" method="post">
         <label for="bruger_email">Bruger Email</label>
-        <input type="text" name="bruger_email" value="<%= en_bruger.bruger_email %>">
+        <input type="text" name="bruger_email" id="bruger_email" value="<%= en_bruger.bruger_email %>">
 
         <label for="bruger_kodeord">Bruger kodeord</label>
         <input type="password" name="bruger_kodeord">
 
         <label for="gentag_kodeord">Gentag kodeord</label>
         <input type="password" name="gentag_kodeord">
-
-
-
         
-        <br>
-    
-    <button class="button button1">Gem</button>
-    <a href="/brugere" class="button button2">Annuller</a>
+        <button class="button button1">Gem</button>
+        <a href="/brugere" class="button button2">Annuller</a>
     </form>
 
         <span id="fejl_besked">
         <%=fejl_besked%>
-    </span>
+        </span>
 
 <% if(alle_brugere.length > 0) { %>
     <table id="table1">
@@ -61,18 +56,27 @@
 <script>
 
 
-document.querySelector('#bruger_form bruger_email').addEventListener('blur', (event)=>{
-
-    let email = document.querySelector('#bruger_form bruger_email').value;
-
-fetch('/findFindFiskepind/'+email).then(response=>{
-
-if(response == false){
-    document.querySelector('#fejl_besked').innerHTML = 'Bruger email er i brug';
-}
+document.querySelector('#bruger_email').addEventListener('blur', (event)=>{
 
 
-})catch(err=>{
+    let email = document.querySelector('#bruger_email').value;
+
+let url = '/findFindFiskepind/'+email;
+
+console.log('url', url);
+
+        fetch(url).then(response=>{
+
+            console.log(response);
+
+                    if(response == false){
+
+                        console.log('den var false');
+                        document.querySelector('#fejl_besked').textContent = 'Bruger email er i brug';
+                    }
+
+
+}).catch(err=>{
     console.log(err);
 });
 
@@ -103,7 +107,7 @@ document.querySelector('#bruger_form button').addEventListener('click', (event)=
     }
     
   if(form_valid == true){
-   // når valideingen er ok, sendes form alle_brugere
+   //når valideingen er ok, sendes form alle_brugere
    form.submit();
    } else {
 document.getElementById('fejl_besked').textContent = fejl_besked.join(',');
