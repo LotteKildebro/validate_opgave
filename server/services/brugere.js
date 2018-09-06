@@ -44,7 +44,7 @@ module.exports = {
             let db = mysql.connect();
             db.execute(`INSERT INTO brugere SET
              bruger_email = ?,
-             bruger_kodeord = ?`,
+             bruger_kode = ?`,
                 [email, kodeord], (err, rows) => {
                     if (err) {
                         console.log(err.message);
