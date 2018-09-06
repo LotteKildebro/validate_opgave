@@ -97,6 +97,30 @@ module.exports = {
                 });
             db.end();
         })
-    }
+    },
+
+
+    find_uniq: (bruger_email) => {
+        return new Promise((resolve, reject) => {
+            let db = mysql.connect();
+            db.execute(`SELECT COUNT(*) AS antal
+                        FROM brugere
+                        WHERE bruger_email = ?`,
+                [bruger_email], (err, rows) => {
+                    if (err) {
+
+                        console.log(err.message);
+                        reject(err.message);
+
+                    } else {
+
+                        let ikke_findes = rows[0].antal == 0;
+
+                        resolve(ikke_findes);
+                    }
+                });
+            db.end();
+        });
+    },
 
 }

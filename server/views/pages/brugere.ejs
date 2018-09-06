@@ -1,4 +1,4 @@
-<% extend('../partials/admin') %>
+<% extend('../partials/template') %>
     <h2>
         <%= title %>
     </h2>
@@ -23,7 +23,7 @@
         <br>
     
     <button class="button button1">Gem</button>
-    <a href="/admin/brugere" class="button button2">Annuller</a>
+    <a href="/brugere" class="button button2">Annuller</a>
     </form>
 
         <span id="fejl_besked">
@@ -59,6 +59,25 @@
     
 
 <script>
+
+
+document.querySelector('#bruger_form bruger_email').addEventListener('blur', (event)=>{
+
+    let email = document.querySelector('#bruger_form bruger_email').value;
+
+fetch('/findFindFiskepind/'+email).then(response=>{
+
+if(response == false){
+    document.querySelector('#fejl_besked').innerHTML = 'Bruger email er i brug';
+}
+
+
+})catch(err=>{
+    console.log(err);
+});
+
+});
+
 
 document.querySelector('#bruger_form button').addEventListener('click', (event)=>{
    event.preventDefault();
